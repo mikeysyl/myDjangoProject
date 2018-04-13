@@ -1,0 +1,10 @@
+<h1>Post</h1>
+<ul>
+{% for post in object_list %}
+    <li><a href="{{post.get_absolute_url}}" >{{ post.title }} -
+    {{post.slug}} - {{post.published}}</a></li>
+{% empty %}
+    <li>No titles yet.</li>
+{% endfor %}
+</ul>
+

@@ -23,9 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '$d_cgutw8bav^m#1-8l#z33%f*jhi4fh4=ebz@asytze_9w)=y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -118,4 +117,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+if DEBUG is True:
+    STATIC_URL = '/static/'
+    STATIC_ROOT = '/static/'
+    STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+    ]
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+else:
+    STATIC_URL = '/static/'
+              
+    STATIC_ROOT = '/var/www/env/immersive/project/static/'
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, '/var/www/env/immersive/project/static/')
+    ]
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, '/var/www/env/immersive/project/media/')

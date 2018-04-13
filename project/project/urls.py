@@ -17,10 +17,17 @@ from django.contrib import admin
 from django.urls import path
 from blog.views import PostListView
 from blog.views import PostDetailView
-
+from django.conf.urls.static import static
+from django.conf import settings 
+from blog.views import PostCreateView
+from blog.views import PostUpdateView
+from blog.views import PostDeleteView
 urlpatterns = [
     path('admin/', admin.site.urls),
-	path('',PostListView.as_view(), name="post"),
+	path('',PostListView.as_view(), name="post_list"),
+	path('create/', PostCreateView.as_view(),name ="post_create"),
+	path('<pk>/', PostDetailView.as_view(),name ="post_detail"),
+	path('<pk>/update/', PostUpdateView.as_view(),name ="post_update"),
+	path('<pk>/delete/', PostDeleteView.as_view(),name ="post_delete"),
 	
-	path('<pk>/', PostDetailView.as_view(),name ="post_detail")
-]	#path('<slug:slug>/', DetailView.as_view(),name ="postdetail")
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
